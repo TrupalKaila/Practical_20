@@ -16,14 +16,13 @@ builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 builder.Logging.AddDebug();
 
-// Add database logging
-builder.Logging.AddProvider(new DatabaseLoggerProvider(builder.Services.BuildServiceProvider()));
-
-// Add file logging
 var logFilePath = Path.Combine(Directory.GetCurrentDirectory(), "logs", "app.log");
-Directory.CreateDirectory(Path.GetDirectoryName(logFilePath));
-builder.Logging.AddProvider(new FileLoggerProvider(logFilePath));
+Directory.CreateDirectory(Path.GetDirectoryName(logFilePath) ?? string.Empty);
 
+// Add database logging with file fallback
+builder.Logging.AddProvider(new DatabaseLoggerProvider(builder.Services.BuildServiceProvider(), logFilePath));
+
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 var app = builder.Build();
 
