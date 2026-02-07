@@ -12,8 +12,8 @@ using Practical_20.Data;
 namespace Practical_20.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260130081143_InitalMig")]
-    partial class InitalMig
+    [Migration("20260207092929_InitialMig")]
+    partial class InitialMig
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
